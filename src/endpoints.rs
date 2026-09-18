@@ -1,4 +1,4 @@
-/// Copyright 2025 Simon De Ridder
+/// Copyright 2026 Simon De Ridder
 /// This file is part of FriendVote.
 /// FriendVote is free software: you can redistribute it and/or modify it under the terms of the
 /// GNU General Public License as published by the Free Software Foundation, either version 3 of the License,
@@ -83,9 +83,9 @@ pub async fn get_election_admin_info(
 	if admin_id == db_entry.admin_id {
 		Ok(AdminInfo {
 			election_name: db_entry.name,
-			admin_path: format!("{}/admin/{}", db_entry.election_id, db_entry.admin_id),
-			vote_path: format!("{}/vote", db_entry.election_id),
-			result_path: format!("{}/result/{}", db_entry.election_id, db_entry.result_id),
+			admin_path: format!("/{}/admin/{}", db_entry.election_id, db_entry.admin_id),
+			vote_path: format!("/{}/vote", db_entry.election_id),
+			result_path: format!("/{}/result/{}", db_entry.election_id, db_entry.result_id),
 		})
 	} else {
 		Err(ServerFnError::new("forbidden"))
@@ -126,7 +126,6 @@ pub async fn cast_vote(
 ) -> Result<(), ServerFnError> {
 	use crate::db::{get_election_details, insert_vote};
 	use leptos::prelude::use_context;
-	use leptos::server_fn::error::NoCustomError;
 	use sea_orm::DatabaseConnection;
 
 	// calculate comparison states from checkbox ids
@@ -137,9 +136,7 @@ pub async fn cast_vote(
 		comp_ind = comp_name
 			.split("_")
 			.last()
-			.ok_or(ServerFnError::<NoCustomError>::ServerError(
-				"Could not find index in comp name.".to_string(),
-			))?
+			.ok_or(ServerFnError::new("Could not find index in comp name.".to_string()))?
 			.parse::<usize>()?;
 		if comp_ind >= (candidates.len() - 1) {
 			break;
@@ -190,7 +187,7 @@ pub async fn cast_vote(
 	insert_vote(&db_conn, &election_id, &candidate_order, &comparator_is_bigger).await?;
 
 	// and redirect to the vote thanks page
-	leptos_axum::redirect("vote_thanks");
+	leptos_axum::redirect("../../vote_thanks");
 	Ok(())
 }
 

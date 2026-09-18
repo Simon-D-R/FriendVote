@@ -1,4 +1,4 @@
-/// Copyright 2025 Simon De Ridder
+/// Copyright 2026 Simon De Ridder
 /// This file is part of FriendVote.
 /// FriendVote is free software: you can redistribute it and/or modify it under the terms of the
 /// GNU General Public License as published by the Free Software Foundation, either version 3 of the License,

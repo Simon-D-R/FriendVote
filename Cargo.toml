@@ -1,33 +1,27 @@
 [package]
 name = "friendvote"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-leptos = { version = "0.7.1" }
-leptos_router = { version = "0.7.1" }
-axum = { version = "0.7", optional = true }
-console_error_panic_hook = "0.1"
-leptos_axum = { version = "0.7.1", optional = true }
-leptos_meta = { version = "0.7.1" }
-tokio = { version = "1", features = ["rt-multi-thread"], optional = true }
-tower = { version = "0.4", optional = true }
-tower-http = { version = "0.5", features = ["fs"], optional = true }
-wasm-bindgen = "=0.2.99"
-thiserror = "1"
-http = "1"
-cfg-if = "1.0.0"
-axum-macros = { version = "0.4.2", optional = true }
-petgraph = { version = "0.7.1", optional = true }
-sea-orm = { version = "1.1.2", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros", "debug-print"], optional = true }
-tracing-subscriber = { version = "0.3.19", optional = true }
-tracing = { version = "0.1.41", optional = true }
-nanoid = { version = "0.4.0", optional = true }
-serde = "1.0.217"
-web-sys = { version="0.3.76", features=["DataTransfer", "DragEvent"] }
+leptos = { version = "0.8.20" }
+leptos_router = { version = "0.8.14" }
+axum = { version = "0.8.9", optional = true }
+console_error_panic_hook = "0.1.7"
+leptos_axum = { version = "0.8.10", optional = true }
+leptos_meta = { version = "0.8.6" }
+tokio = { version = "1.53", features = ["rt-multi-thread"], optional = true }
+wasm-bindgen = "=0.2.126"
+petgraph = { version = "0.8.3", optional = true }
+sea-orm = { version = "2.0.3", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros", "debug-print"], optional = true }
+tracing-subscriber = { version = "0.3.23", optional = true }
+tracing = { version = "0.1.44", optional = true }
+nanoid = { version = "0.5.0", optional = true }
+serde = "1.0.229"
+web-sys = { version="0.3.103", features=["DataTransfer", "DragEvent"] }
 
 migration = { path = "migration", optional = true }
 
@@ -36,10 +30,7 @@ hydrate = ["leptos/hydrate"]
 ssr = [
 	"dep:axum",
 	"dep:tokio",
-	"dep:tower",
-	"dep:tower-http",
 	"dep:leptos_axum",
-	"dep:axum-macros",
 	"dep:petgraph",
 	"dep:sea-orm",
 	"dep:tracing-subscriber",
@@ -81,7 +72,7 @@ assets-dir = "public"
 # The IP and port (ex: 127.0.0.1:3000) where the server serves the content. Use it in your server setup.
 #site-addr = "127.0.0.1:3000"
 #site-addr = "0.0.0.0:3000"
-site-addr = "[::]:3000"
+site-addr = "[::]:5740"
 
 # The port to use for automatic reload monitoring
 reload-port = 3001
@@ -102,6 +93,7 @@ env = "DEV"
 #
 # Optional. Can be over-ridden with the command line parameter --bin-features
 bin-features = ["ssr"]
+#bin-target-triple = "armv7-unknown-linux-musleabihf"
 
 # If the --no-default-features flag should be used when compiling the bin target
 #

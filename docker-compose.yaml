@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:18-alpine
+    ports:
+     - 5432:5432/tcp
+    environment:
+      POSTGRES_USER: "friendvote"
+      POSTGRES_PASSWORD: "friendvote"
+    volumes:
+      - "friendvote-db-data:/var/lib/postgresql"
+      - "./healthchecks:/healthchecks"
+    healthcheck:
+      test: /healthchecks/postgres.sh
+      interval: "5s"
+    command: ["postgres", "-c", "log_statement=all"]
+
+volumes:
+  friendvote-db-data:

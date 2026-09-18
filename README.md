@@ -24,7 +24,7 @@ Either download a pre-compiled release build from github, or build one yourself 
 
 After that, the minimum files needed are:
 
-1. The server binary located in `target/server/release`
+1. The server binary located in `target/release/friendvote`
 2. The `site` directory and all files within located in `target/site`
 
 Copy these files to your remote server. The directory structure should be:
@@ -37,15 +37,17 @@ Set the following environment variables (updating for your project as needed):
 LEPTOS_OUTPUT_NAME="friendvote"
 LEPTOS_SITE_ROOT="site"
 LEPTOS_SITE_PKG_DIR="pkg"
-LEPTOS_SITE_ADDR="127.0.0.1:3000"
+LEPTOS_SITE_ADDR="0.0.0.0:80"
 LEPTOS_RELOAD_PORT="3001"
 DATABASE_URL="postgresql://<username>:<password>@localhost/friendvote"
 ```
 Finally, run the server binary.
 
+On Linux, if not running as root, you may need to add net binding capability with `setcap cap_net_bind_service=ep friendvote` on the server binary.
+
 ## Licensing
 
-Copyright © 2025 Simon De Ridder
+Copyright © 2026 Simon De Ridder
 
 FriendVote is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
